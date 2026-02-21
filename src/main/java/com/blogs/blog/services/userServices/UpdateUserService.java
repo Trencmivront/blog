@@ -1,4 +1,4 @@
-package com.blogs.blog.blogServices.userServices;
+package com.blogs.blog.services.userServices;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -34,6 +34,8 @@ public class UpdateUserService implements Query<UpdateUserFields, String>{
 			// validating body
 			UserContainer userContainer = Optional.of(updateUserFields.getUserContainer()).orElseThrow();			
 			
+			// updating them one by one because I want to keep id and createdAt same
+			// since createdAt is signed as creation of element I cannot assign to it
 			user.setEmail(userContainer.getEmail());
 			user.setName(userContainer.getName());
 			user.setSurname(userContainer.getSurname());

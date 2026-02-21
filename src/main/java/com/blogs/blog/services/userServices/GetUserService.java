@@ -1,4 +1,4 @@
-package com.blogs.blog.blogServices.userServices;
+package com.blogs.blog.services.userServices;
 
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.entities.User;
-import com.blogs.blog.entities.UserDTO;
+import com.blogs.blog.entities.DTO.UserDTO;
 import com.blogs.blog.impl.Query;
 import com.blogs.blog.repos.UserRepository;
 

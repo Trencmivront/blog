@@ -1,6 +1,8 @@
 package com.blogs.blog.entities;
 
 import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,45 +12,37 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
-@Builder
 @Data
-// Error: No default constructor for User
-// But why? I have @Data. What else do you want?
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Table(name = "blogs")
+public class Blogs {
 	
+	@Column
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column
-	private long id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
 	@Column
-	private String name;
+	private String header;
 	
 	@Column
-	private String surname;
+	private String body;
 	
 	@Column
-	private String username;
+	@CreatedBy
+	private Long authorId;
 	
-	@Column
-	private String email;
-	
-	@Column
-	private String password;
-	
-	@Column
-	@DateTimeFormat
 	@CreatedDate
-	private final LocalDateTime createDate = LocalDateTime.now();
+	@DateTimeFormat
+	@Column
+	private LocalDateTime createDate = LocalDateTime.now();
 
 }

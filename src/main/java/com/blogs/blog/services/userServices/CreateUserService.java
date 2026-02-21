@@ -1,4 +1,4 @@
-package com.blogs.blog.blogServices.userServices;
+package com.blogs.blog.services.userServices;
 
 import java.util.Optional;
 import org.springframework.http.HttpStatus;

@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.blogs.blog.blogServices.userServices.CreateUserService;
-import com.blogs.blog.blogServices.userServices.DeleteUserService;
-import com.blogs.blog.blogServices.userServices.GetAllUsersService;
-import com.blogs.blog.blogServices.userServices.GetUserService;
-import com.blogs.blog.blogServices.userServices.UpdateUserService;
 import com.blogs.blog.containers.UpdateUserFields;
 import com.blogs.blog.containers.UserContainer;
-import com.blogs.blog.entities.UserDTO;
+import com.blogs.blog.entities.DTO.UserDTO;
+import com.blogs.blog.services.userServices.CreateUserService;
+import com.blogs.blog.services.userServices.DeleteUserService;
+import com.blogs.blog.services.userServices.GetAllUsersService;
+import com.blogs.blog.services.userServices.GetUserService;
+import com.blogs.blog.services.userServices.UpdateUserService;
 
 import lombok.AllArgsConstructor;
 

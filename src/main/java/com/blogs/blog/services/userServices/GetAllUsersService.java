@@ -1,4 +1,4 @@
-package com.blogs.blog.blogServices.userServices;
+package com.blogs.blog.services.userServices;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -14,7 +14,7 @@ import com.blogs.blog.repos.UserRepository;
 import lombok.AllArgsConstructor;
 
 import com.blogs.blog.entities.User;
-import com.blogs.blog.entities.UserDTO;
+import com.blogs.blog.entities.DTO.UserDTO;
 
 @Service
 @AllArgsConstructor

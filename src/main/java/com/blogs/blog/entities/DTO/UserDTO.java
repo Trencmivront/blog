@@ -1,4 +1,6 @@
-package com.blogs.blog.entities;
+package com.blogs.blog.entities.DTO;
+
+import com.blogs.blog.entities.User;
 
 import lombok.Data;
 
