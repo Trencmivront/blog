@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class CreateUserService implements Query<UserContainer, ResponseEntity<String>>{
+public class CreateUserService implements Query<UserContainer, String>{
 
 	
 	private final UserRepository userRepository;

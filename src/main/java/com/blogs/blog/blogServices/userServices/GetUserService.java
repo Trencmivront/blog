@@ -15,7 +15,7 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class GetUserService implements Query<Long, ResponseEntity<UserDTO>>{
+public class GetUserService implements Query<Long, UserDTO>{
 	
 	private final UserRepository userRepository;
 	
