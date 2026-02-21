@@ -11,14 +11,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
-@Data
 @Builder
+@Data
+// Error: No default constructor for User
+// But why? I have @Data. What else do you want?
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 	
 	@Id
@@ -44,6 +49,6 @@ public class User {
 	@Column
 	@DateTimeFormat
 	@CreatedDate
-	private LocalDateTime createdAt;
+	private final LocalDateTime createdAt = LocalDateTime.now();
 
 }
