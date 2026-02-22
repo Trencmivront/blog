@@ -1,6 +1,6 @@
-package com.blogs.blog.services.blogsServices;
+package com.blogs.blog.services.blogs;
 
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,10 @@ public class CreateBlogService implements Query<BlogContainer, String>{
 	private final BlogsRepository blogsRepository;
 	
 	@Override
-	public ResponseEntity<String> execute(BlogContainer blogContainer) {
+	public ResponseEntity<String> execute(BlogContainer blogContainer){
 		
 		if(blogContainer == null) {
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Value can't be null");
+			return null;
 		}
 		
 		Blogs blogs = Blogs.builder()

@@ -1,15 +1,15 @@
-package com.blogs.blog.services.userServices;
+package com.blogs.blog.services.user;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.containers.UpdateUserFields;
 import com.blogs.blog.containers.UserContainer;
 import com.blogs.blog.entities.User;
+import com.blogs.blog.exceptions.NullBodyException;
+import com.blogs.blog.exceptions.UserNotFoundException;
 import com.blogs.blog.impl.Query;
 import com.blogs.blog.repos.UserRepository;
 
@@ -25,14 +25,21 @@ public class UpdateUserService implements Query<UpdateUserFields, String>{
 	public ResponseEntity<String> execute(UpdateUserFields updateUserFields) {
 		
 		Optional<User> userOptional;
+
+		// no null value accepted
+		userOptional = userRepository.findById(updateUserFields.getId());
 		
-		try {
-			// no null value accepted
-			userOptional = userRepository.findById(updateUserFields.getId());
-			// validating id
-			User user = userOptional.orElseThrow();
+		// validating id
+		if(userOptional.isPresent()) {
+			
+			User user = userOptional.get();
 			// validating body
-			UserContainer userContainer = Optional.of(updateUserFields.getUserContainer()).orElseThrow();			
+			Optional<UserContainer> userContainerOptional = Optional.ofNullable(updateUserFields.getUserContainer());
+			
+			// exit if there is no userContainer
+			if(!userContainerOptional.isPresent()) {throw new NullBodyException();}
+			
+			UserContainer userContainer = userContainerOptional.get();
 			
 			// updating them one by one because I want to keep id and createdAt same
 			// since createdAt is signed as creation of element I cannot assign to it
@@ -46,13 +53,9 @@ public class UpdateUserService implements Query<UpdateUserFields, String>{
 			userRepository.save(user);
 			
 			return ResponseEntity.ok("Updated user");
-			
-		} catch (NoSuchElementException noSuchElementException) {
-			
-			noSuchElementException.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("User not found");
-			
 		}
+
+		throw new UserNotFoundException();
 		
 	}
 

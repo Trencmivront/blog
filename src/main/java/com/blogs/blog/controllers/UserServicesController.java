@@ -16,20 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blogs.blog.containers.UpdateUserFields;
 import com.blogs.blog.containers.UserContainer;
 import com.blogs.blog.entities.DTO.UserDTO;
-import com.blogs.blog.services.userServices.CreateUserService;
-import com.blogs.blog.services.userServices.DeleteUserService;
-import com.blogs.blog.services.userServices.GetAllUsersService;
-import com.blogs.blog.services.userServices.GetUserService;
-import com.blogs.blog.services.userServices.UpdateUserService;
+import com.blogs.blog.services.user.CreateUserService;
+import com.blogs.blog.services.user.DeleteUserService;
+import com.blogs.blog.services.user.GetAllUsersService;
+import com.blogs.blog.services.user.GetUserService;
+import com.blogs.blog.services.user.UpdateUserService;
 
 import lombok.AllArgsConstructor;
 
+// allowing implementation of classes be auto detected by class path scanning
 @Service
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/user")
 public class UserServicesController {
 	
+	// let beans handle creating these services
 	private final CreateUserService createUserService;
 	private final GetUserService getUserService;
 	private final GetAllUsersService getAllUsersService;
@@ -77,7 +79,6 @@ public class UserServicesController {
 		return updateUserService.execute(new UpdateUserFields(id, userContainer));
 		
 	}
-	
 
 }
 

@@ -43,6 +43,6 @@ public class Blogs {
 	@CreatedDate
 	@DateTimeFormat
 	@Column
-	private LocalDateTime createDate = LocalDateTime.now();
+	private final LocalDateTime createDate = LocalDateTime.now();
 
 }

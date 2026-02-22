@@ -1,13 +1,12 @@
-package com.blogs.blog.services.userServices;
+package com.blogs.blog.services.user;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.entities.User;
+import com.blogs.blog.exceptions.UserNotFoundException;
 import com.blogs.blog.impl.Query;
 import com.blogs.blog.repos.UserRepository;
 
@@ -22,23 +21,20 @@ public class DeleteUserService implements Query<Long, String>{
 	@Override
 	public ResponseEntity<String> execute(Long id) {
 		
-		User userOptional;
+		Optional<User> userOptional;
 		
-		try {
+		// if we don't get an error in this line, we are fine
+		userOptional = userRepository.findById(id);
+		
+		if(userOptional.isPresent()) {
 			
-			// if we don't get an error in this line, we are fine
-			userOptional = Optional.of(userRepository.findById(id)).orElseThrow().get();
-			
-			userRepository.delete(userOptional);
+			userRepository.delete(userOptional.get());
 			
 			return ResponseEntity.ok("User deleted succesfully.");
 			
-		} catch (NoSuchElementException noSuchElementException) {
-			
-			noSuchElementException.printStackTrace();
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).body("User not found.");
-			
 		}
+
+		throw new UserNotFoundException();
 		
 	}
 	
