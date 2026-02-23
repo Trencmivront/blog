@@ -3,7 +3,6 @@ package com.blogs.blog.controllers;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +24,6 @@ import com.blogs.blog.services.user.UpdateUserService;
 import lombok.AllArgsConstructor;
 
 // allowing implementation of classes be auto detected by class path scanning
-@Service
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/user")

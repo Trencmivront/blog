@@ -1,15 +1,19 @@
 package com.blogs.blog.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
@@ -37,21 +41,22 @@ public class User {
 	@Column
 	private long id;
 	
+	// validating inputs 
 	@Column
 	@NotNull(message = "Name is required.")
 	@NotEmpty(message = "Name is required.")
-	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "İsim özel karakter veya rakam içeremez.")
+	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "Name cannot contain special letters or numbers.")
 	private String name;
 	
 	@Column
-	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "İsim özel karakter veya rakam içeremez.")
+	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "Surname cannot contain special letters or numbers.")
 	private String surname;
 	
 	@Column
 	@NotNull(message = "Username is required.")
 	@NotEmpty(message = "Username is required.")
 	@Size(min = 4, max = 16, message = "Username length must be between 4-16 characters.")
-	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "İsim özel karakter veya rakam içeremez.")
+	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "Username cannot contain special letters or numbers.")
 	private String username;
 	
 	@Column
@@ -70,5 +75,9 @@ public class User {
 	@DateTimeFormat
 	@CreatedDate
 	private final LocalDateTime createDate = LocalDateTime.now();
+	
+	@OneToMany(orphanRemoval = true,
+			mappedBy = "author", cascade = CascadeType.ALL)
+	private List<Blogs> blogs = new ArrayList<Blogs>();
 
 }

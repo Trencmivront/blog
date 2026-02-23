@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.blogs.blog.containers.UserContainer;
 import com.blogs.blog.entities.User;
-import com.blogs.blog.exceptions.NullBodyException;
 import com.blogs.blog.impl.Query;
 import com.blogs.blog.repos.UserRepository;
 
@@ -20,11 +19,6 @@ public class CreateUserService implements Query<UserContainer, String>{
 
 	@Override
 	public ResponseEntity<String> execute(UserContainer userContainer) {
-		
-		// checking if the body is null
-		if(userContainer == null) {
-			throw new NullBodyException();
-		}
 		
 		// Here and in front-end I will create fix for it.
 		User user;

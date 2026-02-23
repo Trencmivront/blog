@@ -2,16 +2,22 @@ package com.blogs.blog.entities;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,14 +37,21 @@ public class Blogs {
 	private Long id;
 	
 	@Column
+	@NotEmpty(message = "Header is a must.")
+	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü ]*$", message = "Header can't include special characters or number!")
+	@Size(min = 3, message = "Header length must be at least 3 character!")
 	private String header;
 	
 	@Column
+	@NotEmpty(message = "Please write your content.")
+	@NotNull(message = "Please write your content.")
+	@Size(min = 20, message = "Body must be at least 20 character!")
 	private String body;
 	
-	@Column
-	@CreatedBy
-	private Long authorId;
+	@ManyToOne(fetch = FetchType.LAZY) 
+	@JoinColumn(name = "author")
+	@NotNull
+	private User author;
 	
 	@CreatedDate
 	@DateTimeFormat
