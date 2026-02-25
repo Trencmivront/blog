@@ -1,7 +1,10 @@
 package com.blogs.blog.controllers;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.blogs.blog.containers.BlogContainer;
 import com.blogs.blog.containers.BlogOwnerValidateContainer;
 import com.blogs.blog.containers.UpdateBlogFields;
+import com.blogs.blog.entities.DTO.BlogDTO;
 import com.blogs.blog.services.blogs.CreateBlogService;
 import com.blogs.blog.services.blogs.DeleteBlogService;
+import com.blogs.blog.services.blogs.GetAllBlogsService;
+import com.blogs.blog.services.blogs.GetBlogService;
 import com.blogs.blog.services.blogs.UpdateBlogService;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +32,8 @@ public class BlogsServicesController{
 	private final CreateBlogService createBlogService;
 	private final DeleteBlogService deleteBlogService;
 	private final UpdateBlogService updateBlogService;
+	private final GetBlogService getBlogService;
+	private final GetAllBlogsService getAllBlogsService;
 
 	@PostMapping(value = "/user/{authorId}/create_blog")
 	public ResponseEntity<String> createBlog(@RequestBody BlogContainer blogContainer, @PathVariable Long authorId){
@@ -45,7 +53,7 @@ public class BlogsServicesController{
 	
 	// since we want to get blog container, it is being validated from Blogs entity validation steps
 	// during update
-	@PutMapping()
+	@PutMapping(value = "/user/{authorId}/update_blog/{id}")
 	public ResponseEntity<String> updateBlog(@PathVariable Long authorId, @PathVariable Long id,
 			@RequestBody BlogContainer container){
 		
@@ -55,6 +63,20 @@ public class BlogsServicesController{
 		// send container with blog's id
 		// because we don't store id in container
 		return updateBlogService.execute(new UpdateBlogFields(id, container));
+		
+	}
+	
+	@GetMapping(value = "get_blog/{id}")
+	public ResponseEntity<BlogDTO> getBlogById(@PathVariable Long id){
+		
+		return getBlogService.execute(id);
+		
+	}
+	
+	@GetMapping(value = "get_blog/all")
+	public ResponseEntity<List<BlogDTO>> getAllBlogs(){
+		
+		return getAllBlogsService.execute(null);
 		
 	}
 	

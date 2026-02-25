@@ -2,12 +2,13 @@ package com.blogs.blog.services.blogs;
 
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.containers.BlogOwnerValidateContainer;
 import com.blogs.blog.entities.Blogs;
+import com.blogs.blog.exceptions.BlogNotFoundException;
+import com.blogs.blog.exceptions.OwnerOfThisBlogIsSomeoneElseException;
 import com.blogs.blog.impl.Query;
 import com.blogs.blog.repos.BlogsRepository;
 
@@ -30,14 +31,14 @@ public class DeleteBlogService implements Query<BlogOwnerValidateContainer, Stri
 		// is blog exists
 		if(!blogOptional.isPresent()) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Blog not found.");
+			throw new BlogNotFoundException();
 			
 		}
 		
 		// checking if blog belongs to the user
 		if(blogOptional.get().getAuthor().getId() != authorId) {
 			
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("N1g6 tis aint ur blog.");
+			throw new OwnerOfThisBlogIsSomeoneElseException();
 			
 		}
 		

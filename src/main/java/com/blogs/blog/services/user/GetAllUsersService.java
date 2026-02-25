@@ -1,7 +1,6 @@
 package com.blogs.blog.services.user;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,20 +22,11 @@ public class GetAllUsersService implements Query<Void, List<UserDTO>>{
 	@Override
 	public ResponseEntity<List<UserDTO>>  execute(Void i) {
 		
-		Optional<List<User>> userOptionals;
-		List<UserDTO> userDTOs;
+		List<User> userOptionals = userRepository.findAll();
 		
-		userOptionals = Optional.of(userRepository.findAll());
+		List<UserDTO> userDTOs = userOptionals.stream().map(UserDTO::new).toList();
 		
-		if(!userOptionals.get().isEmpty()) {
-			
-			userDTOs = userOptionals.orElseThrow().stream().map(UserDTO::new).toList();
-			
-			return ResponseEntity.ok(userDTOs);
-			
-		}
-		
-		return null;
+		return ResponseEntity.ok(userDTOs);
 		
 	}
 

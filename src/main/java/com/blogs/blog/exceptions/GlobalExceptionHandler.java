@@ -15,10 +15,29 @@ import jakarta.validation.ConstraintViolationException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	
+	// If we put response status in exception class itself, it won't work
 	@ExceptionHandler(exception = UserNotFoundException.class)
 	@ResponseBody
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ErrorResponse userNotFoundExceptionHandler(UserNotFoundException exception){
+		
+		return new ErrorResponse(exception.getMessage());
+		
+	}
+	
+	@ExceptionHandler(exception = BlogNotFoundException.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	public ErrorResponse blogNotFoundExceptionHandler(BlogNotFoundException exception) {
+		
+		return new ErrorResponse(exception.getMessage());
+		
+	}
+	
+	@ExceptionHandler(exception = OwnerOfThisBlogIsSomeoneElseException.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ErrorResponse ownerOfThisBlogIsSomeoneElseExceptionHandler(OwnerOfThisBlogIsSomeoneElseException exception) {
 		
 		return new ErrorResponse(exception.getMessage());
 		

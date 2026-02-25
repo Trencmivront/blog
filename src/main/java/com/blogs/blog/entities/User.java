@@ -45,18 +45,18 @@ public class User {
 	@Column
 	@NotNull(message = "Name is required.")
 	@NotEmpty(message = "Name is required.")
-	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "Name cannot contain special letters or numbers.")
+	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü0123456789 ]*$", message = "Name cannot contain special characters or numbers.")
 	private String name;
 	
 	@Column
-	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "Surname cannot contain special letters or numbers.")
+	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü0123456789 ]*$", message = "Surname cannot contain special characters or numbers.")
 	private String surname;
 	
 	@Column
 	@NotNull(message = "Username is required.")
 	@NotEmpty(message = "Username is required.")
 	@Size(min = 4, max = 16, message = "Username length must be between 4-16 characters.")
-	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü]*$", message = "Username cannot contain special letters or numbers.")
+	@Pattern(regexp="^[^\\s]+$", message = "Username cannot contain space!")
 	private String username;
 	
 	@Column
@@ -68,6 +68,7 @@ public class User {
 	@Column
 	@NotNull(message = "Password is required.")
 	@NotEmpty(message = "Password is required.")
+	@Pattern(regexp = "^[^\\s]+$", message = "Password cannot contain space!")
 	@Size(min = 8, max = 24, message = "Password length must be between 8-24 characters.")
 	private String password;
 	
@@ -78,6 +79,6 @@ public class User {
 	
 	@OneToMany(orphanRemoval = true,
 			mappedBy = "author", cascade = CascadeType.ALL)
-	private List<Blogs> blogs = new ArrayList<Blogs>();
+	private final List<Blogs> blogs = new ArrayList<>();
 
 }

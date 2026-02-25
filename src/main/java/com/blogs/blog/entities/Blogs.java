@@ -16,7 +16,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +37,6 @@ public class Blogs {
 	
 	@Column
 	@NotEmpty(message = "Header is a must.")
-	@Pattern(regexp="^[A-Za-zÇçĞğİıÖöŞşÜü ]*$", message = "Header can't include special characters or number!")
 	@Size(min = 3, message = "Header length must be at least 3 character!")
 	private String header;
 	

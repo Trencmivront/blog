@@ -1,12 +1,11 @@
 package com.blogs.blog.services.blogs;
 
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.containers.BlogContainer;
 import com.blogs.blog.entities.Blogs;
+import com.blogs.blog.exceptions.UserNotFoundException;
 import com.blogs.blog.impl.Query;
 import com.blogs.blog.repos.BlogsRepository;
 import com.blogs.blog.repos.UserRepository;
@@ -31,7 +30,7 @@ public class CreateBlogService implements Query<BlogContainer, String>{
 		
 		if(!userRepository.findById(blogContainer.getAuthorId()).isPresent()) {
 			
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Author that is creating the blog doesn't exists.");
+			throw new UserNotFoundException();
 			
 		}
 		
