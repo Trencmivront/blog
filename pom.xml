@@ -37,6 +37,18 @@
 	    <artifactId>spring-beans</artifactId>
 	    <scope>compile</scope>
 	</dependency>
+	<!-- Source: https://mvnrepository.com/artifact/tools.jackson.dataformat/jackson-dataformat-xml -->
+<dependency>
+    <groupId>tools.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-xml</artifactId>
+    <scope>compile</scope>
+</dependency>
+
+   <!-- Maven -->
+   <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-cache</artifactId>
+    </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jdbc</artifactId>
@@ -55,6 +67,12 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/junit/junit -->
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <scope>test</scope>
+</dependency>
 	<dependency>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok</artifactId>
