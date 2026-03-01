@@ -32,5 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 application.properties
-./gemini_workfolder/
-./runtime_logs/
+./gemini_workfolder
+./runtime_logs
+./catfact

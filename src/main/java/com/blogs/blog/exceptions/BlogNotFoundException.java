@@ -1,13 +1,9 @@
 package com.blogs.blog.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 import com.blogs.blog.exceptions.messages.ErrorMessages;
 
-@ResponseStatus(value =  HttpStatus.NOT_FOUND)
+@SuppressWarnings("serial")
 public class BlogNotFoundException extends RuntimeException{
-	
 	public BlogNotFoundException() {
 		super(ErrorMessages.BLOG_NOT_FOUND.getMessage());
 	}

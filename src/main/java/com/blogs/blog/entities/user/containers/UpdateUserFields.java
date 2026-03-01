@@ -1,6 +1,5 @@
 package com.blogs.blog.entities.user.containers;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

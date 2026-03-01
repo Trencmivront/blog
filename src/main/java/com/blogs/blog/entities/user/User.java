@@ -41,7 +41,7 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
-	private long id;
+	private Long id;
 	
 	// validating inputs 
 	@Column
@@ -57,7 +57,7 @@ public class User {
 	@Column
 	@NotNull(message = "Username is required.")
 	@NotEmpty(message = "Username is required.")
-	@Size(min = 4, max = 16, message = "Username length must be between 4-16 characters.")
+	@Size(min = 4, max = 20, message = "Username length must be between 4-20 characters.")
 	@Pattern(regexp="^[^\\s]+$", message = "Username cannot contain space!")
 	private String username;
 	
@@ -68,10 +68,6 @@ public class User {
 	private String email;
 	
 	@Column
-	@NotNull(message = "Password is required.")
-	@NotEmpty(message = "Password is required.")
-	@Pattern(regexp = "^[^\\s]+$", message = "Password cannot contain space!")
-	@Size(min = 8, max = 24, message = "Password length must be between 8-24 characters.")
 	private String password;
 	
 	@Column

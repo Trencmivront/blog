@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,8 +36,8 @@ public class BlogsServicesController{
 	private final GetBlogService getBlogService;
 	private final GetAllBlogsService getAllBlogsService;
 
-	@PostMapping(value = "/user/{authorId}/create_blog")
-	public ResponseEntity<String> createBlog(@RequestBody BlogContainer blogContainer, @PathVariable Long authorId){
+	@PostMapping(value = "/create_blog")
+	public ResponseEntity<String> createBlog(@RequestBody BlogContainer blogContainer, @RequestHeader Long authorId){
 		
 		blogContainer.setAuthorId(authorId);
 		
@@ -44,7 +45,7 @@ public class BlogsServicesController{
 		
 	}
 	
-	@DeleteMapping(value = "/user/{authorId}/delete_blog/{id}")
+	@DeleteMapping(value = "/user/delete_blog/{id}")
 	public ResponseEntity<String> deleteBlog(@PathVariable Long authorId, @PathVariable Long id){
 		
 		return deleteBlogService.execute(new BlogOwnerValidateContainer(id, authorId));
@@ -53,8 +54,8 @@ public class BlogsServicesController{
 	
 	// since we want to get blog container, it is being validated from Blogs entity validation steps
 	// during update
-	@PutMapping(value = "/user/{authorId}/update_blog/{id}")
-	public ResponseEntity<String> updateBlog(@PathVariable Long authorId, @PathVariable Long id,
+	@PutMapping(value = "/user/update_blog/{id}")
+	public ResponseEntity<String> updateBlog(@RequestHeader Long authorId, @PathVariable Long id,
 			@RequestBody BlogContainer container){
 		
 		// pass in author id to container

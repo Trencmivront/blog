@@ -43,7 +43,7 @@ class UpdateUserServiceTest {
 //		Given
 		
 		User user = User.builder().email("akhsgda@akjshd")
-				.id(1)
+				.id(1l)
 				.name("Yılmaz")
 				.password("asdasferwwdfs")
 				.surname("Sönmez")
