@@ -16,8 +16,8 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import com.blogs.blog.entities.user.User;
-import com.blogs.blog.entities.user.containers.UpdateUserFields;
-import com.blogs.blog.entities.user.containers.UserContainer;
+import com.blogs.blog.entities.user.containers.UserUpdateContainer;
+import com.blogs.blog.entities.user.containers.UserCreateContainer;
 import com.blogs.blog.entities.user.repo.UserRepository;
 import com.blogs.blog.entities.user.services.UpdateUserService;
 import com.blogs.blog.exceptions.UserNotFoundException;
@@ -53,7 +53,7 @@ class UpdateUserServiceTest {
 		
 //		When
 		
-		ResponseEntity<String> responseEntity = updateUserService.execute(new UpdateUserFields(1l, new UserContainer(null, null, null, null, null)));
+		ResponseEntity<String> responseEntity = updateUserService.execute(new UserUpdateContainer(1l, new UserCreateContainer(null, null, null, null, null)));
 		
 //		Then
 //		exists?
@@ -74,7 +74,7 @@ class UpdateUserServiceTest {
 		
 //	 	When & Then
 		
-		assertThrows(UserNotFoundException.class, () ->  updateUserService.execute(new UpdateUserFields(1l, null)));
+		assertThrows(UserNotFoundException.class, () ->  updateUserService.execute(new UserUpdateContainer(1l, null)));
 		
 		verify(userRepository, times(1)).findById(1l);
 	}

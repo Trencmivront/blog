@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.entities.blogs.Blogs;
-import com.blogs.blog.entities.blogs.containers.BlogOwnerValidateContainer;
+import com.blogs.blog.entities.blogs.containers.BlogOwnerValidationContainer;
 import com.blogs.blog.entities.blogs.repo.BlogsRepository;
 import com.blogs.blog.exceptions.BlogNotFoundException;
 import com.blogs.blog.exceptions.OwnerOfThisBlogIsSomeoneElseException;
@@ -16,14 +16,14 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class DeleteBlogService implements Query<BlogOwnerValidateContainer, String>{
+public class DeleteBlogService implements Query<BlogOwnerValidationContainer, String>{
 
 	private final BlogsRepository blogsRepository;
 
 	@Override
-	public ResponseEntity<String> execute(BlogOwnerValidateContainer blogOwnerValidateContainer){
+	public ResponseEntity<String> execute(BlogOwnerValidationContainer blogOwnerValidateContainer){
 	
-		Long authorId = blogOwnerValidateContainer.getAuthorId();
+		String authorUsername = blogOwnerValidateContainer.getAuthorUsername();
 		Long id = blogOwnerValidateContainer.getId();
 		
 		Optional<Blogs> blogOptional = blogsRepository.findById(id);
@@ -36,7 +36,7 @@ public class DeleteBlogService implements Query<BlogOwnerValidateContainer, Stri
 		}
 		
 		// checking if blog belongs to the user
-		if(blogOptional.get().getAuthor().getId() != authorId) {
+		if(blogOptional.get().getAuthor().getEmail().equals(authorUsername)) {
 			
 			throw new OwnerOfThisBlogIsSomeoneElseException();
 			

@@ -7,6 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class UpdateBlogFields {
 	
+//	Id of the blog
 	private final Long id;
+//	new body of the blog
 	private final BlogContainer blogContainer;
 }

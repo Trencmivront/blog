@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class BlogOwnerValidateContainer {
+public class BlogOwnerValidationContainer {
 
 	private final Long id;
-	private final Long authorId;
+	private final String authorUsername;
 	
 }

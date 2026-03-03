@@ -1,4 +1,4 @@
-package com.blogs.blog;
+package com.blogs.blog.config;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +20,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		com.blogs.blog.entities.user.User user = userRepository.findByUsername(username).get();
 		
-		return User.withUsername(username)
+//		email of the user will be username of the user
+		return User.withUsername(user.getEmail())
 				.password(user.getPassword())
 				.roles("USER")
 				.build();

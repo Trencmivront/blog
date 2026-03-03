@@ -68,6 +68,8 @@ public class User {
 	private String email;
 	
 	@Column
+	@NotNull(message = "Password is required.")
+	@NotEmpty(message = "Password is required.")
 	private String password;
 	
 	@Column

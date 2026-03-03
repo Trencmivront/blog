@@ -27,7 +27,6 @@ public class SecurityConfiguration {
 		return security.getSharedObject(AuthenticationManagerBuilder.class).build();
 		
 	}
-	
 
 	@Bean
 	SecurityFilterChain chain(HttpSecurity httpSecurity) throws Exception {
@@ -36,12 +35,16 @@ public class SecurityConfiguration {
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> {
 					
-					auth.requestMatchers("/login").permitAll();
-					auth.requestMatchers("/user/create").permitAll();
-					auth.requestMatchers("/blogs/get_blog/all").permitAll();
-					auth.requestMatchers("/blogs/delete_blog").hasRole("USER");
-					auth.requestMatchers("/blogs/create_blog").hasRole("USER");
-					auth.requestMatchers("/user/get/all").hasRole("ADMIN");
+					auth.anyRequest().permitAll();
+					
+//					auth.requestMatchers("/user/login").permitAll();
+//					auth.requestMatchers("/user/create").permitAll();
+//					auth.requestMatchers("/signIn").permitAll();
+//					auth.requestMatchers("/blogs/get_blog/all").permitAll();
+//					auth.requestMatchers("/blogs/delete_blog").hasRole("USER");
+//					auth.requestMatchers("/blogs/create_blog").hasRole("USER");
+//					auth.requestMatchers("/user/get/all").hasRole("ADMIN");
+
 				})
 				.addFilterBefore(
 						new BasicAuthenticationFilter(authentication(httpSecurity)),

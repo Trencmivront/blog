@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UpdateUserFields {
+public class UserUpdateContainer {
 	
 	private final Long id;
-	private final UserContainer userContainer;
+	private final UserCreateContainer userContainer;
 
 }

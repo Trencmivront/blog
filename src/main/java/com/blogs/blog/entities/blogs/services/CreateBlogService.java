@@ -34,13 +34,13 @@ public class CreateBlogService implements Query<BlogContainer, String>{
 				.body(blogContainer.getBody())
 				.build();
 		
-		if(!userRepository.findById(blogContainer.getAuthorId()).isPresent()) {
+		if(!userRepository.findByUsername(blogContainer.getAuthorUsername()).isPresent()) {
 		
 			throw new UserNotFoundException();
 			
 		}
 		
-		blogs.setAuthor(userRepository.findById(blogContainer.getAuthorId()).get());
+		blogs.setAuthor(userRepository.findByUsername(blogContainer.getAuthorUsername()).get());
 		
 		blogsRepository.save(blogs);
 		

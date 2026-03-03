@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.entities.user.User;
-import com.blogs.blog.entities.user.containers.UpdateUserFields;
-import com.blogs.blog.entities.user.containers.UserContainer;
+import com.blogs.blog.entities.user.containers.UserUpdateContainer;
+import com.blogs.blog.entities.user.containers.UserCreateContainer;
 import com.blogs.blog.entities.user.repo.UserRepository;
 import com.blogs.blog.exceptions.NullBodyException;
 import com.blogs.blog.exceptions.UserNotFoundException;
@@ -20,10 +20,10 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class UpdateUserService implements Query<UpdateUserFields, String>{
+public class UpdateUserService implements Query<UserUpdateContainer, String>{
 	
 	private final UserRepository userRepository;
-	private static final Logger LOGGER = LoggerFactory.getLogger(UpdateUserFields.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(UserUpdateContainer.class);
 	
 //	CacheEvict basically will remove cached data with the key value.
 	@CacheEvict(value = "userCached", key = "#updateUserFields.getId()")
@@ -34,7 +34,7 @@ public class UpdateUserService implements Query<UpdateUserFields, String>{
 	@Override
 //	But I can't use it since mine returns string rn.
 //	@CachePut(value = "userCached", key = "#updateUserFields.getId()")
-	public ResponseEntity<String> execute(UpdateUserFields updateUserFields) {
+	public ResponseEntity<String> execute(UserUpdateContainer updateUserFields) {
 		
 		LOGGER.info("Executing: " + UpdateUserService.class + " input: " + updateUserFields.toString());
 		
@@ -48,12 +48,12 @@ public class UpdateUserService implements Query<UpdateUserFields, String>{
 			
 			User user = userOptional.get();
 			// validating body
-			Optional<UserContainer> userContainerOptional = Optional.ofNullable(updateUserFields.getUserContainer());
+			Optional<UserCreateContainer> userContainerOptional = Optional.ofNullable(updateUserFields.getUserContainer());
 			
 			// exit if there is no userContainer
 			if(!userContainerOptional.isPresent()) {throw new NullBodyException();}
 			
-			UserContainer userContainer = userContainerOptional.get();
+			UserCreateContainer userContainer = userContainerOptional.get();
 			
 			// updating them one by one because I want to keep id and createdAt same
 			// since createdAt is signed as creation of element I cannot assign to it

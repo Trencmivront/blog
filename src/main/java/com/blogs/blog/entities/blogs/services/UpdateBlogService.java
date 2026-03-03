@@ -31,9 +31,9 @@ public class UpdateBlogService implements Query<UpdateBlogFields, String>{
 		
 		Blogs blogs = blogsRepository.findById(id).get();
 		
-		Long authorId = fields.getBlogContainer().getAuthorId();
+		String authorUsername = fields.getBlogContainer().getAuthorUsername();
 		
-		if(blogs.getAuthor().getId() != authorId) {
+		if(blogs.getAuthor().getEmail().equals(authorUsername)) {
 			
 			throw new OwnerOfThisBlogIsSomeoneElseException();
 			

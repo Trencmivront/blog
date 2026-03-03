@@ -5,6 +5,7 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -67,5 +68,22 @@ public class GlobalExceptionHandler {
 	public ErrorResponse duplicateUserConstraintExceptionHandler(SQLIntegrityConstraintViolationException exception) {
 		LOGGER.warn("Exception: " + SQLIntegrityConstraintViolationException.class + " thrown.");
 		return new ErrorResponse("This e-mail is in use!");
+	}
+	
+	@ExceptionHandler(exception = IncorrectPasswordException.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ErrorResponse inccorrectPasswordExcetpionHandler(IncorrectPasswordException exception) {
+		LOGGER.warn("Exception: " + IncorrectPasswordException.class + " thrown.");
+		return new ErrorResponse(exception.getMessage());
+	}	
+	
+	@ExceptionHandler(exception = MethodArgumentNotValidException.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ErrorResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException exception) {
+		LOGGER.warn("Exception: " + MethodArgumentNotValidException.class + " thrown.");
+//		will throw our error, which is last one
+		return new ErrorResponse(exception.getBindingResult().getAllErrors().getLast().getDefaultMessage());
 	}
 }

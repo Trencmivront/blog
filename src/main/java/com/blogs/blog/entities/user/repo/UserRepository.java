@@ -9,7 +9,10 @@ import com.blogs.blog.entities.user.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
+	
+// This one should also return one?
 	Optional<User> findByUsername(String username);
+//	it only returns one
+	Optional<User> findByEmail(String email);
 	
 }
