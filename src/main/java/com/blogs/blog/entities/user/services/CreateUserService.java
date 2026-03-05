@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.config.CustomUserDetailsService;
@@ -18,7 +18,7 @@ public class CreateUserService implements Query<UserCreateContainer, String>{
 
 	
 	public CreateUserService(UserRepository userRepository, CustomUserDetailsService service,
-			BCryptPasswordEncoder encoder) {
+			PasswordEncoder encoder) {
 		super();
 		this.userRepository = userRepository;
 		this.encoder = encoder;
@@ -26,7 +26,7 @@ public class CreateUserService implements Query<UserCreateContainer, String>{
 
 	private final UserRepository userRepository;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CreateUserService.class);
-	private final BCryptPasswordEncoder encoder;
+	private final PasswordEncoder encoder;
 
 	@Override
 	public ResponseEntity<String> execute(UserCreateContainer userContainer) {

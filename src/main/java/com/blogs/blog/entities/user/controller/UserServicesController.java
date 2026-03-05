@@ -21,7 +21,7 @@ import com.blogs.blog.entities.user.services.DeleteUserService;
 import com.blogs.blog.entities.user.services.GetAllUsersService;
 import com.blogs.blog.entities.user.services.GetUserService;
 import com.blogs.blog.entities.user.services.UpdateUserService;
-import com.blogs.blog.entities.user.services.UserLogInService;
+import com.blogs.blog.entities.user.services.UserSignInService;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -39,8 +39,7 @@ public class UserServicesController {
 	private final GetAllUsersService getAllUsersService;
 	private final DeleteUserService deleteUserService;
 	private final UpdateUserService updateUserService;
-	private final UserLogInService userLogInService;
-	
+	private final UserSignInService userSignInService;	
 	// create service
 	// we pass in a user container with only requested values
 	// because we don't want to write over id or created time values
@@ -60,7 +59,7 @@ public class UserServicesController {
 	}
 	
 	// get all data service
-	@GetMapping(value = "get/all")
+	@GetMapping(value = "/get/all")
 	public ResponseEntity<List<UserDTO>>  getAllUsers(){
 		
 		return getAllUsersService.execute(null);
@@ -68,7 +67,7 @@ public class UserServicesController {
 	}
 	
 	// delete service
-	@DeleteMapping(value = "delete")
+	@DeleteMapping(value = "/delete")
 	public ResponseEntity<String> deleteUser(@RequestHeader Long id){
 		
 		return deleteUserService.execute(id);
@@ -76,7 +75,7 @@ public class UserServicesController {
 	}
 	
 	// update service
-	@PutMapping(value = "update")
+	@PutMapping(value = "/update")
 	public ResponseEntity<String> updateUser(@RequestHeader Long id, @RequestBody UserCreateContainer container){
 		
 		return updateUserService.execute(new UserUpdateContainer(id, container));
@@ -85,7 +84,7 @@ public class UserServicesController {
 	
 	@GetMapping("/signIn")
 	public ResponseEntity<String> signInUser(@RequestBody UserSignInContainer container) {
-		return userLogInService.execute(container);
+		return userSignInService.execute(container);
 	}
 }
 

@@ -3,7 +3,7 @@ package com.blogs.blog.entities.user.services;
 import java.util.NoSuchElementException;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blogs.blog.config.CustomUserDetailsService;
@@ -18,10 +18,10 @@ import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class UserLogInService implements Query<UserSignInContainer, String>{
+public class UserSignInService implements Query<UserSignInContainer, String>{
 	
 	private final CustomUserDetailsService service;
-	private final BCryptPasswordEncoder encoder;
+	private final PasswordEncoder encoder;
 	private final UserRepository userRepository;
 	
 	@Override
@@ -30,7 +30,8 @@ public class UserLogInService implements Query<UserSignInContainer, String>{
 		User user;
 		
 		try {
-			user = userRepository.findByUsername(container.getEmail()).orElseThrow();
+//			we will find user by it's email
+			user = userRepository.findByEmail(container.getEmail()).orElseThrow();
 		} catch (NoSuchElementException exception) {
 			throw new UserNotFoundException();
 		}
@@ -44,9 +45,5 @@ public class UserLogInService implements Query<UserSignInContainer, String>{
 		
 		return ResponseEntity.ok("USER SIGNED IN");
 	}
-	
-	
-	
-	
 
 }
