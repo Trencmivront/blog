@@ -3,6 +3,11 @@ package com.blogs.blog.entities.user.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +26,8 @@ import com.blogs.blog.entities.user.services.DeleteUserService;
 import com.blogs.blog.entities.user.services.GetAllUsersService;
 import com.blogs.blog.entities.user.services.GetUserService;
 import com.blogs.blog.entities.user.services.UpdateUserService;
-import com.blogs.blog.entities.user.services.UserSignInService;
+import com.blogs.blog.entities.user.services.UserLogInService;
+import com.blogs.blog.jwt.JwtUtil;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -32,14 +38,14 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping(value = "/user")
 public class UserServicesController {
-	
+	AuthenticationManager manager;
 	// let beans handle creating these services
 	private final CreateUserService createUserService;
 	private final GetUserService getUserService;
 	private final GetAllUsersService getAllUsersService;
 	private final DeleteUserService deleteUserService;
 	private final UpdateUserService updateUserService;
-	private final UserSignInService userSignInService;	
+	private final UserLogInService userLogInService;	
 	// create service
 	// we pass in a user container with only requested values
 	// because we don't want to write over id or created time values
@@ -82,10 +88,21 @@ public class UserServicesController {
 		
 	}
 	
-	@GetMapping("/signIn")
-	public ResponseEntity<String> signInUser(@RequestBody UserSignInContainer container) {
-		return userSignInService.execute(container);
+	@GetMapping("/login")
+	public ResponseEntity<String> signInUser(
+	@RequestBody UserSignInContainer container) {
+		UsernamePasswordAuthenticationToken token =
+				new UsernamePasswordAuthenticationToken(container.getEmail(),
+						container.getPassword());
+		
+		Authentication authentication = manager.authenticate(token);
+		SecurityContextHolder.getContext().setAuthentication(authentication);	
+		
+		String jwtToken = JwtUtil.generateToken((User) authentication.getPrincipal());
+		
+		return ResponseEntity.ok(jwtToken);
 	}
+
 }
 
 

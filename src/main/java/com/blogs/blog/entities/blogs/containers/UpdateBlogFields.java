@@ -11,4 +11,9 @@ public class UpdateBlogFields {
 	private final Long id;
 //	new body of the blog
 	private final BlogContainer blogContainer;
+	
+	@Override
+		public String toString() {
+			return "Long: " + id + ", " + blogContainer;
+		}
 }

@@ -1,4 +1,4 @@
-package com.blogs.blog.impl;
+package com.blogs.blog.interfcs;
 
 import org.springframework.http.ResponseEntity;
 

@@ -8,7 +8,8 @@ import com.blogs.blog.entities.blogs.containers.BlogContainer;
 import com.blogs.blog.entities.blogs.repo.BlogsRepository;
 import com.blogs.blog.entities.user.repo.UserRepository;
 import com.blogs.blog.exceptions.UserNotFoundException;
-import com.blogs.blog.impl.Query;
+import com.blogs.blog.interfcs.Query;
+
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -34,13 +35,13 @@ public class CreateBlogService implements Query<BlogContainer, String>{
 				.body(blogContainer.getBody())
 				.build();
 		
-		if(!userRepository.findByUsername(blogContainer.getAuthorUsername()).isPresent()) {
+		if(!userRepository.findByEmail(blogContainer.getAuthorEmail()).isPresent()) {
 		
 			throw new UserNotFoundException();
 			
 		}
 		
-		blogs.setAuthor(userRepository.findByUsername(blogContainer.getAuthorUsername()).get());
+		blogs.setAuthor(userRepository.findByEmail(blogContainer.getAuthorEmail()).get());
 		
 		blogsRepository.save(blogs);
 		

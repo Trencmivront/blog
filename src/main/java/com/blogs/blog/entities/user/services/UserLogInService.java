@@ -12,21 +12,26 @@ import com.blogs.blog.entities.user.containers.UserSignInContainer;
 import com.blogs.blog.entities.user.repo.UserRepository;
 import com.blogs.blog.exceptions.IncorrectPasswordException;
 import com.blogs.blog.exceptions.UserNotFoundException;
-import com.blogs.blog.impl.Query;
+import com.blogs.blog.interfcs.Query;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
-public class UserSignInService implements Query<UserSignInContainer, String>{
+public class UserLogInService implements Query<UserSignInContainer, String>{
 	
 	private final CustomUserDetailsService service;
 	private final PasswordEncoder encoder;
 	private final UserRepository userRepository;
 	
+	private final static Logger LOGGER = LoggerFactory.getLogger(UserLogInService.class);
+	
 	@Override
 	public ResponseEntity<String> execute(UserSignInContainer container) {
-		
+		LOGGER.info("Executing: " + UserLogInService.class + " input: " + container);
 		User user;
 		
 		try {

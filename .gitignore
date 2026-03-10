@@ -34,4 +34,4 @@ build/
 application.properties
 /gemini_workfolder
 /runtime_logs
-/catfact
+/src/main/java/com/blogs/blog/catfact

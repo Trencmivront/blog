@@ -1,5 +1,7 @@
 package com.blogs.blog.config;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,8 +19,8 @@ public class CustomUserDetailsService implements UserDetailsService{
 	private final UserRepository userRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		com.blogs.blog.entities.user.User user = userRepository.findByUsername(username).get();
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException, NoSuchElementException{
+		com.blogs.blog.entities.user.User user = userRepository.findByEmail(email).get();
 		
 //		email of the user will be username of the user
 		return User.withUsername(user.getEmail())

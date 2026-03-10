@@ -7,13 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.blogs.blog.impl.Query;
-
 import lombok.AllArgsConstructor;
 
 import com.blogs.blog.entities.user.User;
 import com.blogs.blog.entities.user.dto.UserDTO;
 import com.blogs.blog.entities.user.repo.UserRepository;
+import com.blogs.blog.interfcs.Query;
 
 @Service
 @AllArgsConstructor

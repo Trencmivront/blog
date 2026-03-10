@@ -1,6 +1,7 @@
 package com.blogs.blog.exceptions;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.NoSuchElementException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(exception = OwnerOfThisBlogIsSomeoneElseException.class)
 	@ResponseBody
-	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	@ResponseStatus(value = HttpStatus.FORBIDDEN)
 	public ErrorResponse ownerOfThisBlogIsSomeoneElseExceptionHandler(OwnerOfThisBlogIsSomeoneElseException exception) {
 		LOGGER.warn("Exception: " + OwnerOfThisBlogIsSomeoneElseException.class + " thrown.");
 		return new ErrorResponse(exception.getMessage());		
@@ -85,5 +86,13 @@ public class GlobalExceptionHandler {
 		LOGGER.warn("Exception: " + MethodArgumentNotValidException.class + " thrown.");
 //		will throw our error, which is last one
 		return new ErrorResponse(exception.getBindingResult().getAllErrors().getLast().getDefaultMessage());
+	}
+	
+	@ExceptionHandler(exception = NoSuchElementException.class)
+	@ResponseBody
+	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
+	public ErrorResponse noSuchElementExceptionHandler(NoSuchElementException exception) {
+		LOGGER.warn("Exception: " + NoSuchElementException.class + " thrown.");
+		return new ErrorResponse(exception.getMessage());
 	}
 }

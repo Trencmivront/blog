@@ -11,6 +11,6 @@ public class BlogContainer {
 	// we say that this is not going to be added manually
 	// but will taken from URL
 	@Null
-	private String authorUsername;
+	private String authorEmail;
 	
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.blogs.blog.entities.user.User;
 import com.blogs.blog.entities.user.repo.UserRepository;
 import com.blogs.blog.exceptions.UserNotFoundException;
-import com.blogs.blog.impl.Query;
+import com.blogs.blog.interfcs.Query;
 
 import lombok.AllArgsConstructor;
 

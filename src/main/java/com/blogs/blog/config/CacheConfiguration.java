@@ -2,13 +2,11 @@ package com.blogs.blog.config;
 
 import java.util.Arrays;
 
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 // Indicates that beans from this class may be processed in Spring container
 @Configuration

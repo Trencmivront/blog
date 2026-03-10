@@ -6,11 +6,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+
+import com.blogs.blog.jwt.JwtAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -33,25 +35,26 @@ public class SecurityConfiguration {
 	SecurityFilterChain chain(HttpSecurity httpSecurity) throws Exception {
 		
 		return httpSecurity
-				.csrf(csrf -> csrf.disable())
+				.csrf(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests(auth -> {
 					
-					auth.anyRequest().permitAll();
-					
-//					auth.requestMatchers("/user/login").permitAll();
-//					auth.requestMatchers("/user/create").permitAll();
-//					auth.requestMatchers("/signIn").permitAll();
-//					auth.requestMatchers("/blogs/get_blog/all").permitAll();
-//					auth.requestMatchers("/blogs/delete_blog").hasRole("USER");
-//					auth.requestMatchers("/blogs/create_blog").hasRole("USER");
-//					auth.requestMatchers("/user/get/all").hasRole("ADMIN");
-
+					auth.requestMatchers("/user/login").permitAll();
+					auth.requestMatchers("/user/create").permitAll();
+					auth.requestMatchers("/blogs/get_blog/all");
+					auth.requestMatchers("/blogs/delete_blog").hasRole("USER");
+					auth.requestMatchers("/blogs/create_blog").hasRole("USER");
+					auth.anyRequest().authenticated();
 				})
 				.addFilterBefore(
-						new BasicAuthenticationFilter(authentication(httpSecurity)),
+						jwtAuthenticationFilter(),
 						UsernamePasswordAuthenticationFilter.class)
 				.build();
 		
+	}
+	
+	@Bean
+	JwtAuthenticationFilter jwtAuthenticationFilter() {
+		return new JwtAuthenticationFilter();
 	}
 
 }

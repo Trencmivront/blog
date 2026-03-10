@@ -8,6 +8,6 @@ import lombok.Getter;
 public class BlogOwnerValidationContainer {
 
 	private final Long id;
-	private final String authorUsername;
+	private final String authorEmail;
 	
 }

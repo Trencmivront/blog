@@ -7,22 +7,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.blogs.blog.config.CustomUserDetailsService;
 import com.blogs.blog.entities.user.User;
 import com.blogs.blog.entities.user.containers.UserCreateContainer;
 import com.blogs.blog.entities.user.repo.UserRepository;
-import com.blogs.blog.impl.Query;
+import com.blogs.blog.interfcs.Query;
+
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class CreateUserService implements Query<UserCreateContainer, String>{
-
-	
-	public CreateUserService(UserRepository userRepository, CustomUserDetailsService service,
-			PasswordEncoder encoder) {
-		super();
-		this.userRepository = userRepository;
-		this.encoder = encoder;
-	}
 
 	private final UserRepository userRepository;
 	private static final Logger LOGGER = LoggerFactory.getLogger(CreateUserService.class);

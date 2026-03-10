@@ -14,7 +14,7 @@ import com.blogs.blog.entities.user.containers.UserCreateContainer;
 import com.blogs.blog.entities.user.repo.UserRepository;
 import com.blogs.blog.exceptions.NullBodyException;
 import com.blogs.blog.exceptions.UserNotFoundException;
-import com.blogs.blog.impl.Query;
+import com.blogs.blog.interfcs.Query;
 
 import lombok.AllArgsConstructor;
 
@@ -34,21 +34,21 @@ public class UpdateUserService implements Query<UserUpdateContainer, String>{
 	@Override
 //	But I can't use it since mine returns string rn.
 //	@CachePut(value = "userCached", key = "#updateUserFields.getId()")
-	public ResponseEntity<String> execute(UserUpdateContainer updateUserFields) {
+	public ResponseEntity<String> execute(UserUpdateContainer updateUserContainer) {
 		
-		LOGGER.info("Executing: " + UpdateUserService.class + " input: " + updateUserFields.toString());
+		LOGGER.info("Executing: " + UpdateUserService.class + " input: " + updateUserContainer.toString());
 		
 		Optional<User> userOptional;
 
 		// no null value accepted
-		userOptional = userRepository.findById(updateUserFields.getId());
+		userOptional = userRepository.findById(updateUserContainer.getId());
 		
 		// validating id
 		if(userOptional.isPresent()) {
 			
 			User user = userOptional.get();
 			// validating body
-			Optional<UserCreateContainer> userContainerOptional = Optional.ofNullable(updateUserFields.getUserContainer());
+			Optional<UserCreateContainer> userContainerOptional = Optional.ofNullable(updateUserContainer.getUserContainer());
 			
 			// exit if there is no userContainer
 			if(!userContainerOptional.isPresent()) {throw new NullBodyException();}
