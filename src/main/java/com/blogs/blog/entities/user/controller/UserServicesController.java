@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,7 @@ import lombok.AllArgsConstructor;
 // allowing implementation of classes be auto detected by class path scanning
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping(value = "/user")
 public class UserServicesController {
 	AuthenticationManager manager;
@@ -45,61 +47,61 @@ public class UserServicesController {
 	private final GetAllUsersService getAllUsersService;
 	private final DeleteUserService deleteUserService;
 	private final UpdateUserService updateUserService;
-	private final UserLogInService userLogInService;	
+	private final UserLogInService userLogInService;
 	// create service
 	// we pass in a user container with only requested values
 	// because we don't want to write over id or created time values
 	@PostMapping(value = "/create")
 	public ResponseEntity<String> postUser(@RequestBody @Valid UserCreateContainer container) {
-		
+
 		return createUserService.execute(container);
-		
+
 	}
-	
+
 	// get by id service
 	@GetMapping(value = "/get")
 	public ResponseEntity<UserDTO> getUserById(@RequestHeader Long id) {
-		
+
 		return getUserService.execute(id);
-		
+
 	}
-	
+
 	// get all data service
 	@GetMapping(value = "/get/all")
 	public ResponseEntity<List<UserDTO>>  getAllUsers(){
-		
+
 		return getAllUsersService.execute(null);
-		
+
 	}
-	
+
 	// delete service
 	@DeleteMapping(value = "/delete")
 	public ResponseEntity<String> deleteUser(@RequestHeader Long id){
-		
+
 		return deleteUserService.execute(id);
-		
+
 	}
-	
+
 	// update service
 	@PutMapping(value = "/update")
 	public ResponseEntity<String> updateUser(@RequestHeader Long id, @RequestBody UserCreateContainer container){
-		
+
 		return updateUserService.execute(new UserUpdateContainer(id, container));
-		
+
 	}
-	
+
 	@GetMapping("/login")
 	public ResponseEntity<String> signInUser(
 	@RequestBody UserSignInContainer container) {
 		UsernamePasswordAuthenticationToken token =
 				new UsernamePasswordAuthenticationToken(container.getEmail(),
 						container.getPassword());
-		
+
 		Authentication authentication = manager.authenticate(token);
-		SecurityContextHolder.getContext().setAuthentication(authentication);	
-		
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		String jwtToken = JwtUtil.generateToken((User) authentication.getPrincipal());
-		
+
 		return ResponseEntity.ok(jwtToken);
 	}
 

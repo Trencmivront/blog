@@ -12,35 +12,35 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 public class JwtUtil {
-	
+
 //	Generating a web token for the user
 	public static String generateToken(User user) {
-		
+
 		return Jwts.builder()
 				.subject(user.getUsername())
 //				the expiration date for the token. We will check it's
 //				expiration by ourselves
-				.expiration(new Date(System.currentTimeMillis() + 300_000))
+				.expiration(new Date(System.currentTimeMillis() + 3_000_000))
 				.signWith(getSignKey())
 				.compact();
-		
+
 	}
-	
+
 //	claims are contents of token, the data that it holds in it.
 	public static Claims getClaims(String token) {
-		
+
 		return Jwts.parser()
 				.verifyWith(getSignKey())
 				.build()
 				.parseSignedClaims(token)
 				.getPayload();
-		
+
 	}
-	
+
 	public static Boolean isTokenValid(String token) {
 		return !isExpired(token);
 	}
-	
+
 	private static Boolean isExpired(String token) {
 		return getClaims(token)
 				.getExpiration()

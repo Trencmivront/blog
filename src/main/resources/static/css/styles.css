@@ -8,13 +8,18 @@
 }
 
 .div_table_form{
-    padding: 45% 50%;
     position: absolute;
     height: 100px;
     width: 200px;
 }
 
-.input_text{
+.name_text_input {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.input_text input[type="text"],
+.input_text input[type="password"],
+.input_text input[type="email"] {
     width: 200px;
     height: 30px;
     border-radius: 5px;
@@ -23,10 +28,10 @@
     margin: 10px 10px 10px 10px;
     position: relative;
 }
-.input_text:focus{
-
+.input_text:focus input[type="text"],
+.input_text:focus input[type="password"],
+.input_text:focus input[type="email"] {
     border-color: red;
-
 }
 .input_button{
     border-radius: 15px 15px;
@@ -41,7 +46,7 @@
     ,box-shadow 0.5s
     , background-color 0.5s;
 }
-.input_button:hover {
+.input_button:hover{
 
 margin: 50px 10px 10px 60px;
 background-color: silver;

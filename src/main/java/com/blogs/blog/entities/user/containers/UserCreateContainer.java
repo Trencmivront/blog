@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserCreateContainer {
-	
+
 	private String name;
 	private String surname;
 	private String username;
