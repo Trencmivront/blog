@@ -8,7 +8,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class UserSignInContainer {
+public class UserLogInContainer {
 	
 	@NotNull(message = "email can't be null!")
 	@NotEmpty(message = "email can't be empty!")

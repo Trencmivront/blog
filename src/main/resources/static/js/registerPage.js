@@ -1,23 +1,27 @@
 const submit_button = document.getElementById("submit_button");
+const messageP = document.getElementById("message");
+
+const messageScreen = (message) => {
+    messageP.innerText = message;
+    messageP.style.color = red;
+    messageP.style.fontSize = 40;
+}
 
 submit_button.addEventListener("click", (event) => {
-    // Use document to find the specific input elements
     const password = document.getElementById("password_textarea").value;
     const confirmPassword = document.getElementById("c_password_textarea").value;
     event.preventDefault();
-    // Compare the actual strings (values)
     if (password !== confirmPassword) {
-        // Prevent the form from actually sending
         event.preventDefault(); 
-        alert("Passwords are not same!");
+            messageScreen(data.message);
+            console.error(data.message);
         return;
     }
     console.log("executing postData()");
     postData();
 });
 
-// Use 'const' or 'function' to define your function properly
-const postData = () => {
+const postData = async () => {
 
     const userRegister = {
         name: document.getElementById("name_textarea").value,
@@ -36,18 +40,20 @@ const postData = () => {
     }
 
     console.log("sending api request");
-    fetch("http://localhost:8080/user/create", config)
-    .then((response) => {
-        const data = response.json();
-        if(!response.ok){
-            console.error(data.message);
-        }
-        return data;})
-    .then((data) => {
-        alert(data.message);
-    })
-    .catch(error => {
-        alert(error.message);
-    });
 
-};
+    try{
+        const response = await fetch("http://localhost:8080/user/create", config)
+        const data = await response.json();
+
+        if(!response.ok){
+            messageScreen(data.message);
+            console.error(data.message);
+            return;
+        }
+
+        window.location.href ="/logIn";
+    }catch(error){
+        messageScreen(error);
+        console.error(error);
+    }
+}

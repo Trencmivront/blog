@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.blogs.blog.entities.blogs.Blogs;
+import com.blogs.blog.entities.blogs.Blog;
 import com.blogs.blog.entities.blogs.dto.BlogDTO;
 import com.blogs.blog.entities.blogs.repo.BlogsRepository;
 import com.blogs.blog.exceptions.BlogNotFoundException;
@@ -26,7 +26,7 @@ public class GetBlogService implements Query<Long, BlogDTO> {
 	public ResponseEntity<BlogDTO> execute(Long id) {
 		LOGGER.info("Executing: " + GetBlogService.class + " input: " + id);
 		
-		Optional<Blogs> blogOptional = blogsRepository.findById(id);
+		Optional<Blog> blogOptional = blogsRepository.findById(id);
 		
 		if(!blogOptional.isPresent()) {
 			

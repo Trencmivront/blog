@@ -2,7 +2,7 @@ package com.blogs.blog.entities.blogs.dto;
 
 import java.time.LocalDateTime;
 
-import com.blogs.blog.entities.blogs.Blogs;
+import com.blogs.blog.entities.blogs.Blog;
 
 import lombok.Data;
 
@@ -16,12 +16,12 @@ public class BlogDTO {
 	private LocalDateTime createDate;
 	
 	
-	public BlogDTO(Blogs blogs) {
+	public BlogDTO(Blog blog) {
 		
-		this.header = blogs.getHeader();
-		this.body = blogs.getBody();
-		this.author = blogs.getAuthor().getName();
-		this.createDate = blogs.getCreateDate();
+		this.header = blog.getHeader();
+		this.body = blog.getBody();
+		this.author = blog.getAuthor().getName();
+		this.createDate = blog.getCreateDate();
 		
 	}
 	

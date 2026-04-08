@@ -1,0 +1,9 @@
+#log_in_button{
+    background-color: beige;
+    border-radius: 10px;
+}
+#register_button{
+    background-color: beige;
+    border-radius: 10px;
+    box-sizing: content-box;
+}

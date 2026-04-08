@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.blogs.blog.entities.blogs.Blogs;
+import com.blogs.blog.entities.blogs.Blog;
 import com.blogs.blog.entities.blogs.containers.UpdateBlogFields;
 import com.blogs.blog.entities.blogs.repo.BlogsRepository;
 import com.blogs.blog.exceptions.BlogNotFoundException;
@@ -33,20 +33,20 @@ public class UpdateBlogService implements Query<UpdateBlogFields, String>{
 			
 		}
 		
-		Blogs blogs = blogsRepository.findById(id).get();
+		Blog blog = blogsRepository.findById(id).get();
 		
 		String authorEmail = fields.getBlogContainer().getAuthorEmail();
 		
-		if(!blogs.getAuthor().getEmail().equals(authorEmail)) {
+		if(!blog.getAuthor().getEmail().equals(authorEmail)) {
 			
 			throw new OwnerOfThisBlogIsSomeoneElseException();
 			
 		}
 		
-		blogs.setBody(fields.getBlogContainer().getBody());
-		blogs.setHeader(fields.getBlogContainer().getHeader());
+		blog.setBody(fields.getBlogContainer().getBody());
+		blog.setHeader(fields.getBlogContainer().getHeader());
 		
-		blogsRepository.save(blogs);
+		blogsRepository.save(blog);
 		
 		return ResponseEntity.ok("BLOG UPDATED");
 	}

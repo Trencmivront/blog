@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "blogs")
-public class Blogs {
+public class Blog {
 	
 	@Column
 	@Id

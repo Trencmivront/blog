@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<title>Log In</title>
-<link rel="stylesheet" href="../static/css/styles.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Log In</title>
+	<link rel="stylesheet" th:href="@{/css/logInOut.css}">
+	<script th:src="@{/js/logInPage.js}" defer></script>
 </head>
+
 <body>
 
-	<div class="div_table_form input_text">
-
-		<table>
-
-			<tr> <td><h1 class="div_table_h1" align="center">LogIn</h1></td></tr>
-			<tr>
-				<td>
-					<form action="">
-						<table>
-							<tr>
-								<td><input type="text" maxlength="20" title="username" placeholder="Username" required="required" autofocus="autofocus"></td>
-							</tr>
-							<tr>
-								<td><input type="password" maxlength="24" placeholder="Password" required="required" title="password"></td>
-							</tr>
-						</table>
-						<button class="input_button" name="sign_in" title="sign in">Sign In</button>
-					</form>
-				</td>
-			</tr>
-			<tr><td>Don't have an account? <a href="/templates/register">Register</a></td></tr>
-		</table>
-
+	<div class="div_centered">
+		<div class="div_table_form input_text center_page">
+			<table>
+				<tr> <td><h1 class="div_table_h1">LogIn</h1></td></tr>
+				<tr>
+					<td>
+						<form action="">
+							<table>
+								<tr>
+									<td><input id="email" type="email" maxlength="20" title="username" placeholder="Email" required="required" autofocus="autofocus" autocomplete="email"></td>
+								</tr>
+								<tr>
+									<td><input id="password" type="password" maxlength="24" placeholder="Password" required="required" title="password"></td>
+								</tr>
+							</table>
+							<p id="info_p"></p>
+							<button id="login_submit" class="input_button" name="sign_in" title="sign in">Sign In</button>
+						</form>
+					</td>
+				</tr>
+				<tr><td><p class="div_p-bottom">Don't have an account? <a th:href="@{/register}">Register</a></p></td></tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

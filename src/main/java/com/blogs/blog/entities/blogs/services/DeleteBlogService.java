@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.blogs.blog.entities.blogs.Blogs;
+import com.blogs.blog.entities.blogs.Blog;
 import com.blogs.blog.entities.blogs.containers.BlogOwnerValidationContainer;
 import com.blogs.blog.entities.blogs.repo.BlogsRepository;
 import com.blogs.blog.exceptions.BlogNotFoundException;
@@ -30,7 +30,7 @@ public class DeleteBlogService implements Query<BlogOwnerValidationContainer, St
 		String authorEmail = blogOwnerValidateContainer.getAuthorEmail();
 		Long id = blogOwnerValidateContainer.getId();
 		
-		Optional<Blogs> blogOptional = blogsRepository.findById(id);
+		Optional<Blog> blogOptional = blogsRepository.findById(id);
 		
 		// is blog exists
 		if(!blogOptional.isPresent()) {

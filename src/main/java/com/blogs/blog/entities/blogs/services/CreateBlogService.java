@@ -3,7 +3,7 @@ package com.blogs.blog.entities.blogs.services;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.blogs.blog.entities.blogs.Blogs;
+import com.blogs.blog.entities.blogs.Blog;
 import com.blogs.blog.entities.blogs.containers.BlogContainer;
 import com.blogs.blog.entities.blogs.repo.BlogsRepository;
 import com.blogs.blog.entities.user.repo.UserRepository;
@@ -18,33 +18,26 @@ import lombok.AllArgsConstructor;
 @Service
 @AllArgsConstructor
 public class CreateBlogService implements Query<BlogContainer, String>{
-	
+
 	private final BlogsRepository blogsRepository;
 	private final UserRepository userRepository;
-	
 	private final static Logger logger = LoggerFactory.getLogger(CreateBlogService.class);
-	
+
 	@Override
 	public ResponseEntity<String> execute(BlogContainer blogContainer){
-		
 		logger.info("Executing: " + CreateBlogService.class + " input: " + blogContainer);
-		
+
 		// take user id and use it to get author?
-		Blogs blogs = Blogs.builder()
+		Blog blog = Blog.builder()
 				.header(blogContainer.getHeader())
 				.body(blogContainer.getBody())
 				.build();
-		
 		if(!userRepository.findByEmail(blogContainer.getAuthorEmail()).isPresent()) {
-		
 			throw new UserNotFoundException();
-			
 		}
-		
-		blogs.setAuthor(userRepository.findByEmail(blogContainer.getAuthorEmail()).get());
-		
-		blogsRepository.save(blogs);
-		
+		blog.setAuthor(userRepository.findByEmail(blogContainer.getAuthorEmail()).get());
+		blogsRepository.save(blog);
+
 		return ResponseEntity.ok("BLOG CREATED");
 	}
 }

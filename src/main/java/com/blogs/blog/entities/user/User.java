@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.blogs.blog.entities.blogs.Blogs;
+import com.blogs.blog.entities.blogs.Blog;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -79,6 +79,6 @@ public class User {
 	
 	@OneToMany(orphanRemoval = true,
 			mappedBy = "author", cascade = CascadeType.ALL)
-	private final List<Blogs> blogs = new ArrayList<>();
+	private final List<Blog> blog = new ArrayList<>();
 
 }

@@ -1,9 +1,11 @@
 package com.blogs.blog.jwt;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import io.jsonwebtoken.Claims;
@@ -16,8 +18,18 @@ public class JwtUtil {
 //	Generating a web token for the user
 	public static String generateToken(User user) {
 
+//		Method Reference: .map(GrantedAuthority::getAuthority)
+//	    Lambda: .map(auth -> auth.getAuthority())
+//	The auth -> auth.getAuthority() literally says: "Take the authority object (auth), and replace it with the result of its getAuthority() method."
+
+		List<String> roles = user.getAuthorities().stream()
+				.map(GrantedAuthority::getAuthority)
+				.toList();
+
 		return Jwts.builder()
 				.subject(user.getUsername())
+//				we pass in the List String
+				.claim("roles", roles)
 //				the expiration date for the token. We will check it's
 //				expiration by ourselves
 				.expiration(new Date(System.currentTimeMillis() + 3_000_000))

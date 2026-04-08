@@ -1,25 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="tr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"/>
 <title>Main Page</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../static/css/styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="stylesheet" th:href="@{/css/pages.css}"/>
+<script th:src="@{/js/index.js}" type="module" defer></script>
 </head>
 <body>
 
     <nav>
-        <div> 
-            <table border="solid" style="table-layout: fixed; width: 100%;">
-                <tr> 
+        <div>
+            <table style="table-layout: fixed; width: 100%;border: solid;display: flex;justify-content: center;">
+                <tr>
                     <td>
-                        <h1><a href="./index.html">Welcome</a></h1>
-                    </td>
-                    <td>
-                        
-                    </td>
-                    <td>
-                        
+                        <h1><a id="link_to_index" th:href="@{/}">Welcome</a></h1>
                     </td>
                     <td>
 
@@ -28,13 +23,25 @@
 
                     </td>
                     <td>
-                        <button class="table_button-link">Sign In</button>
+
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        <a id="log_in_button" th:href="@{/logIn}">
+                            <button >Log In</button>
+                        </a>
                     </td>
                 </tr>
             </table>
         </div>
     </nav>
-    <article>
+    <div style="display: flex; justify-content: start; gap: 10px;">
+        <p>Search By Name</p>
+        <textarea id="search_field" style="resize: none;"></textarea>
+    </div>
+    <article id="blogs" style="display: flex; flex-direction: column;">
 
     </article>
     <aside>
